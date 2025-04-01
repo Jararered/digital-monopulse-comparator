@@ -16,12 +16,15 @@ public:
     // Generates signals based on true target position and current antenna pointing
     MonopulseSignals generateSignals(const TargetState &targetState);
 
+    // Getters for initial and current angles
+    AntennaAngles getInitialAngles() const;
     AntennaAngles getCurrentAngles() const;
 
     // Parameters could include gain, noise floor, etc.
     void setParameters(/* ... */);
 
 private:
+    AntennaAngles initialAngles;
     AntennaAngles currentAngles;
     double beamwidth; // For pattern simulation
     // Add state for dynamics if more complex than simple integration

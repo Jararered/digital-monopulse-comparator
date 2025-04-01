@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "core": "cpp",
-        "linalg.h": "c"
+        "linalg.h": "c",
+        "vector": "cpp",
+        "complex": "cpp"
     }
 }

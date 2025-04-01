@@ -9,7 +9,7 @@
 #endif
 
 AntennaPlatform::AntennaPlatform(const AntennaAngles &initialAngles, double beamwidthRad)
-    : currentAngles(initialAngles), beamwidth(beamwidthRad)
+    : initialAngles(initialAngles), currentAngles(initialAngles), beamwidth(beamwidthRad)
 {
     if (beamwidth <= 0)
     {
@@ -26,6 +26,11 @@ void AntennaPlatform::updatePointing(const AntennaCommands &commands, double dt)
     // currentAngles.azimuth = std::fmod(currentAngles.azimuth + M_PI, 2.0 * M_PI) - M_PI;
     // Optional: Clamp elevation (e.g., to [-pi/2, pi/2])
     // currentAngles.elevation = std::max(-M_PI / 2.0, std::min(M_PI / 2.0, currentAngles.elevation));
+}
+
+AntennaAngles AntennaPlatform::getInitialAngles() const
+{
+    return initialAngles;
 }
 
 AntennaAngles AntennaPlatform::getCurrentAngles() const

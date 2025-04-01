@@ -4,7 +4,17 @@ project(digital-monopulse-comparator)
 
 add_subdirectory(ext)
 
-add_executable(digital_monopulse_comparator src/main.cpp)
+add_executable(digital_monopulse_comparator 
+    src/main.cpp
+    src/AntennaPlatform.cpp
+    src/SignalProcessor.cpp
+    src/TargetSimulator.cpp
+    src/TrackerController.cpp
+)
+
+target_include_directories(digital_monopulse_comparator PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+)
 
 target_link_libraries(digital_monopulse_comparator
 PRIVATE

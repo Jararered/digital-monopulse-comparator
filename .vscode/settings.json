@@ -3,6 +3,14 @@
         "core": "cpp",
         "linalg.h": "c",
         "vector": "cpp",
-        "complex": "cpp"
-    }
+        "complex": "cpp",
+        "array": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp",
+        "cmath": "cpp"
+    },
+    "cmake.generator": "Ninja",
+    "cmake.options.statusBarVisibility": "visible"
 }

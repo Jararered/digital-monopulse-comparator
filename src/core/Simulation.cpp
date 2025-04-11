@@ -1,6 +1,6 @@
 #include "Simulation.hpp"
 
-#include "imgui.h"
+#include <imgui.h>
 
 #include <stdexcept>
 
@@ -14,7 +14,7 @@ void Simulation::Initialize()
     {
         throw std::invalid_argument("Simulation start time must be less than end time");
     }
-    if (m_SimParamsCurrent.simDt <= 0)
+    if (m_SimParamsCurrent.simTimeStep <= 0)
     {
         throw std::invalid_argument("Simulation time step must be greater than 0");
     }
@@ -47,13 +47,16 @@ void Simulation::Update()
     }
 
     // Advance the simulation time
-    m_SimulationTime += m_SimParamsCurrent.simDt;
+    m_SimulationTime += m_SimParamsCurrent.simTimeStep;
 
-    // Update all objects
-    for (auto object : m_Objects)
+    // Stop the simulation if the end time is set and the simulation time has exceeded the end time
+    if (m_SimParamsCurrent.simEndTime > 0.0 && m_SimulationTime >= m_SimParamsCurrent.simEndTime)
     {
-        object->Update(m_SimParamsCurrent.simDt);
+        Stop();
     }
+
+    // Update all objects if the next time to process doesn't exceed the end time
+    UpdateObjects();
 }
 
 void Simulation::Step()
@@ -65,12 +68,25 @@ void Simulation::Step()
     }
 
     // Advance the simulation time
-    m_SimulationTime += m_SimParamsCurrent.simDt;
+    m_SimulationTime += m_SimParamsCurrent.simTimeStep;
 
     // Update all objects
+    UpdateObjects();
+}
+
+void Simulation::UpdateObjects()
+{
     for (auto object : m_Objects)
     {
-        object->Update(m_SimParamsCurrent.simDt);
+        object->Update(m_SimParamsCurrent.simTimeStep);
+    }
+}
+
+void Simulation::RenderObjects()
+{
+    for (auto object : m_Objects)
+    {
+        object->Render();
     }
 }
 

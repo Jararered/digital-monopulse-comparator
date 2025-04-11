@@ -1,22 +1,15 @@
 #pragma once
 
+#include "SimulationObject.hpp"
+
 #include <vector>
 
 struct SimulationParameters
 {
-    double simDt = 1 / 60;       // 60 Hz / 16.6667 ms
-    double simStartTime = 0;     // sec (0 sec)
-    double simEndTime = 10;      // sec (10 sec)
+    double simTimeStep = 1.0 / 60.0;   // 60 Hz / 16.6667 ms
+    double simStartTime = 0.0;   // sec (0 sec)
+    double simEndTime = -1.0;    // By default, the simulation will run indefinitely
     int updateCountPerFrame = 1; // 1 update per frame
-};
-
-class SimulationObject
-{
-public:
-    virtual void Initialize() = 0;
-    virtual void Update(double dt) = 0;
-    virtual void Finalize() = 0;
-    virtual void Reset() = 0;
 };
 
 class Simulation
@@ -39,12 +32,14 @@ public:
     // Simulation Object Management
     virtual void AddObject(SimulationObject *object);
     virtual void RemoveObject(SimulationObject *object);
+    virtual void UpdateObjects();
+    virtual void RenderObjects();
     virtual void ClearObjects();
 
     // Rendering
     virtual void RenderControls();
 
-    virtual double &getSimulationDt() { return m_SimParamsCurrent.simDt; }
+    virtual double &getSimulationDt() { return m_SimParamsCurrent.simTimeStep; }
     virtual double &getSimulationStartTime() { return m_SimParamsCurrent.simStartTime; }
     virtual double &getSimulationEndTime() { return m_SimParamsCurrent.simEndTime; }
     virtual double &getSimulationTime() { return m_SimulationTime; }

@@ -7,6 +7,8 @@
 #include <imgui/backends/imgui_impl_opengl3.h>
 #include <imgui/imgui.h>
 
+#include <implot.h>
+
 #include <cstdio>
 #include <string>
 
@@ -30,6 +32,8 @@ public:
     Application(const ApplicationParams &params) : m_AppParams(params) {}
     virtual ~Application() = default;
 
+    virtual void Start();
+
     virtual void Initialize();
     virtual void Update();
     virtual void Finalize();
@@ -38,46 +42,12 @@ public:
     virtual void Render();
     virtual void EndFrame();
 
-    virtual void SetSimulation(Simulation *simulation)
-    {
-        if (p_Simulation != nullptr)
-        {
-            fprintf(stderr, "Simulation is already set\n");
-            return;
-        }
+    Simulation *CreateSimulation(SimulationParameters &params);
+    virtual void SetSimulation(Simulation *simulation);
+    virtual Simulation *GetSimulation();
+    virtual void ClearSimulation();
 
-        if (simulation == nullptr)
-        {
-            fprintf(stderr, "Simulation is nullptr\n");
-            return;
-        }
-
-        p_Simulation = simulation;
-    }
-
-    virtual Simulation *GetSimulation()
-    {
-        if (p_Simulation == nullptr)
-        {
-            fprintf(stderr, "Simulation is not set\n");
-            return nullptr;
-        }
-        return p_Simulation;
-    }
-
-    virtual void ClearSimulation()
-    {
-        if (p_Simulation == nullptr)
-        {
-            fprintf(stderr, "Simulation is not set\n");
-            return;
-        }
-
-        delete p_Simulation;
-        p_Simulation = nullptr;
-    }
-
-    bool isRunning() const { return glfwWindowShouldClose(m_Window) == 0; }
+    bool isRunning() const;
 
 protected:
     GLFWwindow *m_Window = nullptr;

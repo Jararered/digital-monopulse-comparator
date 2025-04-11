@@ -8,5 +8,5 @@ namespace Constants
     const double PI = 3.14159265358979323846;
 
     // Speed of light in meters per second
-    const double C = 299792458.0; // m/s
+    const double SpeedOfLight = 299792458.0; // m/s
 }

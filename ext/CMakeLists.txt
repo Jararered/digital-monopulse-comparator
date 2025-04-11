@@ -19,6 +19,22 @@ target_sources(IMGUI_INTERFACE INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_opengl3.cpp
 )
 
+
+
+# IMPLOT INTERFACE
+add_library(IMPLOT_INTERFACE INTERFACE)
+
+target_include_directories(IMPLOT_INTERFACE INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}/implot/inc
+)
+
+target_sources(IMPLOT_INTERFACE INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}/implot/src/implot.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/implot/src/implot_items.cpp
+)
+
+
+
 # GLAD INTERFACE
 add_library(GLAD_INTERFACE INTERFACE)
 
@@ -29,6 +45,8 @@ target_include_directories(GLAD_INTERFACE INTERFACE
 target_sources(GLAD_INTERFACE INTERFACE 
     ${CMAKE_CURRENT_SOURCE_DIR}/glad/src/gl.c
 )
+
+
 
 # GLFW INTERFACE
 add_library(GLFW_INTERFACE INTERFACE)
@@ -41,8 +59,9 @@ target_link_libraries(GLFW_INTERFACE INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/glfw/lib/glfw3.lib
 )
 
-# add_subdirectory(eigen)
 
+
+# LINALG INTERFACE
 add_library(LINALG_INTERFACE INTERFACE)
 
 target_include_directories(LINALG_INTERFACE INTERFACE

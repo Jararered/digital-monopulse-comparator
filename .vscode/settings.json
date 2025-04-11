@@ -9,7 +9,8 @@
         "span": "cpp",
         "xstring": "cpp",
         "xutility": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "xiosbase": "cpp"
     },
     "cmake.generator": "Ninja",
     "cmake.options.statusBarVisibility": "visible"
